@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
 
     sort = params[:sort] || session[:sort]
     @ratings_to_show = params[:ratings] || session[:ratings] \
-                      || Hash[@all_ratings.map { |r| [r, 1] }]
+      || Hash[@all_ratings.map { |r| [r, 1] }]
                       
     
     if !params[:commit].nil? or params[:ratings].nil? or \
