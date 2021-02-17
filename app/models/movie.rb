@@ -3,7 +3,7 @@ class Movie < ActiveRecord::Base
       pluck(:rating).uniq
   end
 
-  def self.with_ratings(ratings)
-      where("LOWER(rating) IN (?)", ratings.map(&:downcase))
+  def self.with_ratings(ratinglst)
+      where("LOWER(rating) IN (?)", ratinglst.map(&:downcase))
   end
 end
