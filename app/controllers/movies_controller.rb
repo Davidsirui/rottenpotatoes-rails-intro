@@ -15,8 +15,6 @@ class MoviesController < ApplicationController
 
     sort = params[:sort] || session[:sort]
     
-    # @ratings_to_show = params[:ratings] || session[:ratings] \
-    #   || Hash[@all_ratings.map { |r| [r, 1] }]
     set_rate_to_show()
                       
                       
@@ -28,16 +26,26 @@ class MoviesController < ApplicationController
     end
        
                     
+    # if sort == 'title'
+    #   ordering, @title_cls = {:title => :asc}, 'hilite'
+    # elsif sort == 'release_date'
+    #   ordering, @release_cls = {:release_date => :asc}, 'hilite'
+    # end
+    # @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
+    sort_order()
+    
+    session[:sort] = sort
+    session[:ratings] = @ratings_to_show
+  end
+  
+  def sort_order
+    sort = params[:sort] || session[:sort]
     if sort == 'title'
       ordering, @title_cls = {:title => :asc}, 'hilite'
     elsif sort == 'release_date'
       ordering, @release_cls = {:release_date => :asc}, 'hilite'
     end
-
-
     @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
-    session[:sort] = sort
-    session[:ratings] = @ratings_to_show
   end
   
   def set_rate_to_show
