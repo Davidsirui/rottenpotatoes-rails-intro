@@ -14,11 +14,14 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     sort = params[:sort] || session[:sort]
+    session[:sort] = sort
+    session[:ratings] = @ratings_to_show
+    
     @ratings_to_show = params[:ratings] || session[:ratings] \
       || Hash[@all_ratings.map { |r| [r, 1] }]
                       
                       
-    params_and_session_sort = params[:sort].nil? && !session[:sort].nil?
+    params_and_session_sort = (params[:sort].nil? && !session[:sort].nil?)
     
     if !params[:commit].nil? or params[:ratings].nil? or params_and_session_sort
        flash.keep
@@ -35,13 +38,8 @@ class MoviesController < ApplicationController
 
 
     @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
-    rem_session()
   end
   
-  def rem_session
-    session[:sort] = sort
-    session[:ratings] = @ratings_to_show
-  end
 
   def new
     # default: render 'new' template
