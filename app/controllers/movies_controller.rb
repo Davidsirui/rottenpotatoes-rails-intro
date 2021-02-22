@@ -14,11 +14,10 @@ class MoviesController < ApplicationController
     @all_ratings = Movie.all_ratings
 
     sort = params[:sort] || session[:sort]
-    session[:sort] = sort
-    session[:ratings] = @ratings_to_show
     
-    @ratings_to_show = params[:ratings] || session[:ratings] \
-      || Hash[@all_ratings.map { |r| [r, 1] }]
+    # @ratings_to_show = params[:ratings] || session[:ratings] \
+    #   || Hash[@all_ratings.map { |r| [r, 1] }]
+    set_rate_to_show()
                       
                       
     params_and_session_sort = (params[:sort].nil? && !session[:sort].nil?)
@@ -29,7 +28,6 @@ class MoviesController < ApplicationController
     end
        
                     
-    # case sort
     if sort == 'title'
       ordering, @title_cls = {:title => :asc}, 'hilite'
     elsif sort == 'release_date'
@@ -38,8 +36,14 @@ class MoviesController < ApplicationController
 
 
     @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
+    session[:sort] = sort
+    session[:ratings] = @ratings_to_show
   end
   
+  def set_rate_to_show
+    @ratings_to_show = params[:ratings] || session[:ratings] \
+      || Hash[@all_ratings.map { |r| [r, 1] }]
+  end
 
   def new
     # default: render 'new' template
