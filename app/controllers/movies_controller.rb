@@ -26,12 +26,6 @@ class MoviesController < ApplicationController
     end
        
                     
-    # if sort == 'title'
-    #   ordering, @title_cls = {:title => :asc}, 'hilite'
-    # elsif sort == 'release_date'
-    #   ordering, @release_cls = {:release_date => :asc}, 'hilite'
-    # end
-    # @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
     sort_order()
     
     session[:sort] = sort
