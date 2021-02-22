@@ -25,10 +25,10 @@ class MoviesController < ApplicationController
     end
        
                     
-    case sort
-    when 'title'
+    # case sort
+    if sort == 'title'
       ordering, @title_cls = {:title => :asc}, 'hilite'
-    when 'release_date'
+    elsif sort == 'release_date'
       ordering, @release_cls = {:release_date => :asc}, 'hilite'
     end
 
