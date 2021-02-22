@@ -1,0 +1,2 @@
+https://github.com/Davidsirui/rottenpotatoes-rails-intro
+https://cryptic-coast-86371.herokuapp.com/
