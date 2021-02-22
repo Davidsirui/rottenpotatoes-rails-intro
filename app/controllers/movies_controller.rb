@@ -17,9 +17,10 @@ class MoviesController < ApplicationController
     @ratings_to_show = params[:ratings] || session[:ratings] \
       || Hash[@all_ratings.map { |r| [r, 1] }]
                       
+                      
+    params_and_session_sort = params[:sort].nil? && !session[:sort].nil?
     
-    if !params[:commit].nil? or params[:ratings].nil? or \
-       (params[:sort].nil? && !session[:sort].nil?)
+    if !params[:commit].nil? or params[:ratings].nil? or params_and_session_sort
        flash.keep
        redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
     end
@@ -34,7 +35,10 @@ class MoviesController < ApplicationController
 
 
     @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
-    
+    rem_session()
+  end
+  
+  def rem_session
     session[:sort] = sort
     session[:ratings] = @ratings_to_show
   end
