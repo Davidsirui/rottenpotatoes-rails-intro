@@ -20,16 +20,28 @@ class MoviesController < ApplicationController
                       
     params_and_session_sort = (params[:sort].nil? && !session[:sort].nil?)
     
-    if !params[:commit].nil? or params[:ratings].nil? or params_and_session_sort
-       flash.keep
-       redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
+    if !params[:commit].nil?
+       redirect_movies_path()
+    end
+    
+    if params[:ratings].nil?
+      redirect_movies_path()
+    end
+    
+    if params_and_session_sort
+      redirect_movies_path()
     end
        
-                    
     sort_order()
     
     session[:sort] = sort
     session[:ratings] = @ratings_to_show
+  end
+  
+  def redirect_movies_path
+    sort = params[:sort] || session[:sort]
+    flash.keep
+    redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
   end
   
   def sort_order
