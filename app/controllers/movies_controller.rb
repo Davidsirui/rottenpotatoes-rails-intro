@@ -12,6 +12,16 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
+    
+    if sort == 'title'
+      ranking = {title: :asc}
+      # @movies = Movie.with_ratings(@ratings_to_show.keys).order({title: :asc})
+      @title_cls = 'hilite'
+    elsif sort == 'release_date'
+      ranking = {release_date: :asc}
+      # @movies = Movie.with_ratings(@ratings_to_show.keys).order({release_date: :asc})
+      @release_cls = 'hilite'
+    end
 
     sort = params[:sort] || session[:sort]
     
@@ -32,7 +42,8 @@ class MoviesController < ApplicationController
       redirect_movies_path()
     end
        
-    sort_order()
+    # sort_order()
+    @movies = Movie.with_ratings(@ratings_to_show.keys).order(ranking)
     
     session[:sort] = sort
     session[:ratings] = @ratings_to_show
@@ -65,7 +76,7 @@ class MoviesController < ApplicationController
       # @movies = Movie.with_ratings(@ratings_to_show.keys).order({release_date: :asc})
       @release_cls = 'hilite'
     end
-    @movies = Movie.with_ratings(@ratings_to_show).order(ranking)
+    @movies = Movie.with_ratings(@ratings_to_show.keys).order(ranking)
   end
   
   def set_rate_to_show
