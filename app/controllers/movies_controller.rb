@@ -38,7 +38,7 @@ class MoviesController < ApplicationController
     #TODO: The code below is for testing.
     if !params[:ratings].nil?
       session[:ratings] = params[:ratings]
-      redirect_to sort: session[:sort], ratings: session[:ratings]
+      # redirect_to sort: session[:sort], ratings: session[:ratings]
     else
       if !session[:ratings].nil?
         if !session[:sort].nil?
