@@ -35,12 +35,33 @@ class MoviesController < ApplicationController
     # end
     
     
-    #TODO: The code below is for testing.
+    # if !params[:ratings].nil?
+    #   session[:ratings] = params[:ratings]
+    #   flash.keep
+    # else
+    #   if !session[:ratings].nil?
+    #     if !session[:sort].nil?
+    #       flash.keep
+    #       redirect_to sort => sort, ratings: @ratings_to_show
+    #     else
+    #       flash.keep
+    #       redirect_to ratings: @ratings_to_show
+    #     end
+    #   else
+    #     if !session[:sort].nil?
+    #       flash.keep
+    #       redirect_to sort => sort, ratings: @ratings_to_show
+    #     else
+    #       flash.keep
+    #       redirect_to ratings: @ratings_to_show
+    #     end
+    #   end
+    # end
+    
     if !params[:ratings].nil?
       session[:ratings] = params[:ratings]
       flash.keep
     else
-      if !session[:ratings].nil?
         if !session[:sort].nil?
           flash.keep
           redirect_to sort => sort, ratings: @ratings_to_show
@@ -48,17 +69,8 @@ class MoviesController < ApplicationController
           flash.keep
           redirect_to ratings: @ratings_to_show
         end
-      else
-        if !session[:sort].nil?
-          flash.keep
-          redirect_to sort => sort, ratings: @ratings_to_show
-        else
-          flash.keep
-          redirect_to ratings: @ratings_to_show
-        end
-      end
     end
-    #TODO: The code above is for testing.
+
        
     # sort_order()
     @movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
