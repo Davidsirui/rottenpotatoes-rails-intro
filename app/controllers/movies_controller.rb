@@ -45,13 +45,6 @@ class MoviesController < ApplicationController
     session[:ratings] = @ratings_to_show
   end
   
-  def redirect_movies_path
-    sort = params[:sort] || session[:sort]
-    flash.keep
-    # redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
-    redirect_to :sort => sort, :ratings => @ratings_to_show
-  end
-  
   
   def set_rate_to_show
     @ratings_to_show = params[:ratings] || session[:ratings] \
