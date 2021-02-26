@@ -28,13 +28,8 @@ class MoviesController < ApplicationController
        redirect_movies_path()
     end
        
-    # sort_order()
-    sort = params[:sort] || session[:sort]
-    if sort == 'title'
-      ordering, @title_cls = {title: :asc}, 'hilite'
-    elsif sort == 'release_date'
-      ordering, @release_cls = {release_date: :asc}, 'hilite'
-    end
+    sort_order()
+    
     #@movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
     @movies = Movie.order(ordering).where(rating: @ratings_to_show)
     
@@ -55,8 +50,7 @@ class MoviesController < ApplicationController
     elsif sort == 'release_date'
       ordering, @release_cls = {release_date: :asc}, 'hilite'
     end
-    #@movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
-    @movies = Movie.order(ordering).where(rating: @ratings_to_show)
+    @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
   end
   
   def set_rate_to_show
