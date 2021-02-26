@@ -65,7 +65,7 @@ class MoviesController < ApplicationController
       # @movies = Movie.with_ratings(@ratings_to_show.keys).order({release_date: :asc})
       @release_cls = 'hilite'
     end
-    @movies = Movie.with_ratings(@ratings_to_show.keys).order(ranking)
+    @movies = Movie.with_ratings(@ratings_to_show).order(ranking)
   end
   
   def set_rate_to_show
