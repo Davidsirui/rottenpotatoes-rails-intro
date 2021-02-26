@@ -17,8 +17,7 @@ class MoviesController < ApplicationController
 
     
     set_rate_to_show()
-                      
-                      
+
     params_and_session_sort = (params[:sort].nil? && !session[:sort].nil?)
     
     if !params[:commit].nil?
