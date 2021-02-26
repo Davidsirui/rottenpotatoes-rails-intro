@@ -44,7 +44,8 @@ class MoviesController < ApplicationController
   def redirect_movies_path
     sort = params[:sort] || session[:sort]
     flash.keep
-    redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
+    # redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
+    redirect_to :sort => sort, :ratings => @ratings_to_show
   end
   
   def sort_order
