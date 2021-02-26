@@ -12,24 +12,25 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    
+
     sort = params[:sort] || session[:sort]
     
     set_rate_to_show()
-
+                      
+                      
     params_and_session_sort = (params[:sort].nil? && !session[:sort].nil?)
     
-    if !params[:commit].nil?
+    if !params[:commit].nil? or params[:ratings].nil? or params_and_session_sort
        redirect_movies_path()
     end
     
-    if params[:ratings].nil?
-      redirect_movies_path()
-    end
+    # if params[:ratings].nil?
+    #   redirect_movies_path()
+    # end
     
-    if params_and_session_sort
-      redirect_movies_path()
-    end
+    # if params_and_session_sort
+    #   redirect_movies_path()
+    # end
        
     sort_order()
     
