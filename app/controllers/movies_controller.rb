@@ -13,6 +13,8 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     
+    sort = params[:sort] || session[:sort]
+    
     if sort == 'title'
       ranking = {title: :asc}
       # @movies = Movie.with_ratings(@ratings_to_show.keys).order({title: :asc})
@@ -23,7 +25,6 @@ class MoviesController < ApplicationController
       @release_cls = 'hilite'
     end
 
-    sort = params[:sort] || session[:sort]
     
     set_rate_to_show()
                       
