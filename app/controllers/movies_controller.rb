@@ -50,7 +50,8 @@ class MoviesController < ApplicationController
       @ordering, @release_cls = session[:sort], 'hilite'
       #ordering, @release_cls = {release_date: :asc}, 'hilite'
     end
-    @movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
+    #@movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
+    @movies = Movie.with_ratings(@ratings_to_show).order(@ordering)
   end
   
   def set_rate_to_show
