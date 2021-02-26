@@ -33,7 +33,6 @@ class MoviesController < ApplicationController
     end
        
     sort_order()
-    # @movies = Movie.with_ratings(@ratings_to_show.keys).order(ranking)
     
     session[:sort] = sort
     session[:ratings] = @ratings_to_show
