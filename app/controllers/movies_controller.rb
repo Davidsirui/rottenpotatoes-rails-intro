@@ -24,39 +24,6 @@ class MoviesController < ApplicationController
     set_rate_to_show()
                       
                       
-    # params_and_session_sort = (params[:sort].nil? && !session[:sort].nil?)
-    
-    # if !params[:commit].nil? or params[:ratings].nil? or params_and_session_sort
-    #   redirect_movies_path()
-    # end
-    
-    # if params[:ratings].nil? or params_and_session_sort
-    #   redirect_movies_path()
-    # end
-    
-    
-    # if !params[:ratings].nil?
-    #   session[:ratings] = params[:ratings]
-    #   flash.keep
-    # else
-    #   if !session[:ratings].nil?
-    #     if !session[:sort].nil?
-    #       flash.keep
-    #       redirect_to sort => sort, ratings: @ratings_to_show
-    #     else
-    #       flash.keep
-    #       redirect_to ratings: @ratings_to_show
-    #     end
-    #   else
-    #     if !session[:sort].nil?
-    #       flash.keep
-    #       redirect_to sort => sort, ratings: @ratings_to_show
-    #     else
-    #       flash.keep
-    #       redirect_to ratings: @ratings_to_show
-    #     end
-    #   end
-    # end
     
     if !params[:ratings].nil?
       session[:ratings] = params[:ratings]
@@ -72,7 +39,6 @@ class MoviesController < ApplicationController
     end
 
        
-    # sort_order()
     @movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
     
     session[:sort] = sort
@@ -86,18 +52,6 @@ class MoviesController < ApplicationController
     redirect_to :sort => sort, :ratings => @ratings_to_show
   end
   
-  # def sort_order
-  #   sort = params[:sort] || session[:sort]
-  #   @ordering = session[:sort]
-  #   if sort == 'title'
-  #     #ordering, @title_cls = {title: :asc}, 'hilite'
-  #     @title_cls = 'hilite'
-  #   elsif sort == 'release_date'
-  #     @release_cls = 'hilite'
-  #     #ordering, @release_cls = {release_date: :asc}, 'hilite'
-  #   end
-  #   @movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
-  # end
   
   def set_rate_to_show
     @ratings_to_show = params[:ratings] || session[:ratings] \
