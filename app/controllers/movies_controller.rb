@@ -43,15 +43,15 @@ class MoviesController < ApplicationController
   
   def sort_order
     sort = params[:sort] || session[:sort]
+    @ordering = session[:sort]
     if sort == 'title'
       #ordering, @title_cls = {title: :asc}, 'hilite'
-      @ordering, @title_cls = session[:sort], 'hilite'
+      @title_cls = 'hilite'
     elsif sort == 'release_date'
-      @ordering, @release_cls = session[:sort], 'hilite'
+      @release_cls = 'hilite'
       #ordering, @release_cls = {release_date: :asc}, 'hilite'
     end
-    #@movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
-    @movies = Movie.with_ratings(@ratings_to_show).order(@ordering)
+    @movies = Movie.with_ratings(@ratings_to_show.keys).order(@ordering)
   end
   
   def set_rate_to_show
