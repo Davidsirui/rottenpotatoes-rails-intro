@@ -38,28 +38,16 @@ class MoviesController < ApplicationController
     #TODO: The code below is for testing.
     if !params[:ratings].nil?
       session[:ratings] = params[:ratings]
-      # This check is to ensure it is a hash
-      # if session[:ratings].respond_to?(:keys)
-      #   @checked_ratings = session[:ratings].keys
-      # else
-      #   @checked_ratings = session[:ratings]
-      # end
+      redirect_to sort: session[:sort], ratings: session[:ratings]
     else
       if !session[:ratings].nil?
         if !session[:sort].nil?
-          # Redirects for restfulness
           flash.keep
           redirect_to sort: session[:sort], ratings: session[:ratings]
         else
           flash.keep
           redirect_to ratings: session[:ratings]
         end
-        # This check is to ensure it is a hash
-        # if session[:ratings].respond_to?(:keys)
-        #   @checked_ratings = session[:ratings].keys
-        # else
-        #   @checked_ratings = session[:ratings]
-        # end
       else
         if !session[:sort].nil?
           flash.keep
@@ -68,7 +56,6 @@ class MoviesController < ApplicationController
           flash.keep
           redirect_to ratings: @all_ratings
         end
-        @checked_ratings = @all_ratings
       end
     end
     #TODO: The code above is for testing.
