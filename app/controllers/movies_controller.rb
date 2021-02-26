@@ -44,14 +44,26 @@ class MoviesController < ApplicationController
     redirect_to movies_path :sort => sort, :ratings => @ratings_to_show
   end
   
+  # def sort_order
+  #   sort = params[:sort] || session[:sort]
+  #   if sort == 'title'
+  #     ordering, @title_cls = {:title => :asc}, 'hilite'
+  #   elsif sort == 'release_date'
+  #     ordering, @release_cls = {:release_date => :asc}, 'hilite'
+  #   end
+  #   @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
+  # end
+  
   def sort_order
     sort = params[:sort] || session[:sort]
     if sort == 'title'
-      ordering, @title_cls = {:title => :asc}, 'hilite'
+      @movies = Movie.with_ratings(@ratings_to_show.keys).order({title: :asc})
+      @title_cls = 'hilite'
     elsif sort == 'release_date'
-      ordering, @release_cls = {:release_date => :asc}, 'hilite'
+      @movies = Movie.with_ratings(@ratings_to_show.keys).order({release_date: :asc})
+      @release_cls = 'hilite'
     end
-    @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
+    # @movies = Movie.with_ratings(@ratings_to_show.keys).order(ordering)
   end
   
   def set_rate_to_show
