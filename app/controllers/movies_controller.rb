@@ -39,12 +39,12 @@ class MoviesController < ApplicationController
     if !params[:ratings].nil?
       session[:ratings] = params[:ratings]
       flash.keep
-      redirect_to sort: session[:sort], ratings:  @ratings_to_show
+      #redirect_to sort: session[:sort], ratings:  @ratings_to_show
     else
       if !session[:ratings].nil?
         if !session[:sort].nil?
           flash.keep
-          redirect_to sort: session[:sort], ratings: @ratings_to_show
+          redirect_to sort: sort, ratings: @ratings_to_show
         else
           flash.keep
           redirect_to ratings: @ratings_to_show
@@ -52,7 +52,7 @@ class MoviesController < ApplicationController
       else
         if !session[:sort].nil?
           flash.keep
-          redirect_to sort: session[:sort], ratings: @ratings_to_show
+          redirect_to sort: sort, ratings: @ratings_to_show
         else
           flash.keep
           redirect_to ratings: @ratings_to_show
